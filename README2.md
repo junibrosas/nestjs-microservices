@@ -1,7 +1,13 @@
-To run,
+# nestjs-microservices
+
+Create a proof-of-concept for a communication between services using NestJS framework.
+
+## Installation
 
 Run `npm install` to all services.
 Run `npm run start:dev` to all services.
+
+## Running the application
 
 To have a sample running microservice communication:
 
