@@ -22,3 +22,6 @@ To have a sample running microservice communication:
 ```
 
 - Then, you should be able to see a log in `sample-communication` server.
+
+References:
+https://dzone.com/articles/how-to-create-a-nestjs-redis-microservice
