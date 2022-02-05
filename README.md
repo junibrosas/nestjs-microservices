@@ -25,3 +25,8 @@ To have a sample running microservice communication:
 
 References:
 https://dzone.com/articles/how-to-create-a-nestjs-redis-microservice
+
+## Tools
+
+- NestJS
+- Mail
