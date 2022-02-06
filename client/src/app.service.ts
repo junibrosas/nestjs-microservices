@@ -25,9 +25,6 @@ export class AppService {
   }
 
   async sendEmailMessage() {
-    return this.client.send(
-      { cmd: 'send-mail-message' },
-      'junibrosas@gmail.com',
-    );
+    this.client.emit({ cmd: 'send-mail-message' }, 'junibrosas@gmail.com');
   }
 }

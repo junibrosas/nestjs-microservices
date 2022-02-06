@@ -1,8 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
+  constructor(private readonly appService: AppService) {}
+
   @MessagePattern({ cmd: 'greeting' })
   getGreetingMessage(name: string): string {
     return `Hello ${name}`;
@@ -18,8 +21,8 @@ export class AppController {
     console.log(data);
   }
 
-  @MessagePattern({ cmd: 'send-mail-message' })
-  getSendMail(recipient: string): string {
-    return `Sending email message to ${recipient}`;
+  @EventPattern({ cmd: 'send-mail-message' })
+  getSendMail(recipient: string): Promise<void> {
+    return this.appService.sendConfirmationEmail(recipient);
   }
 }
