@@ -9,7 +9,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MailgunService } from '@nextnm/nestjs-mailgun';
 import { Job } from 'bull';
-import { MAIL_QUEUE, MAIL_EXPORTED_USERS } from './app.constants';
+import { MAIL_QUEUE, MAIL_QUEUE_EXPORTED_USERS } from './app.constants';
 
 /**
  * This class define methods that either process jobs added into the queue, or listen for events on the queue.
@@ -75,7 +75,7 @@ export class MailProcessor {
   //   }
   // }
 
-  @Process(MAIL_EXPORTED_USERS)
+  @Process(MAIL_QUEUE_EXPORTED_USERS)
   public async exportedUsers(job: Job<{ recipient: string }>) {
     console.warn(job.data.recipient);
   }

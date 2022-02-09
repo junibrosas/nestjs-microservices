@@ -16,14 +16,14 @@ https://dzone.com/articles/how-to-create-a-nestjs-redis-microservice
 
 - NestJS
 - Mail
-- Queue
+- BullJS
 
 ## Brief architecture overview
 
 This API showcase consists of the following parts:
 
 - API gateway
-- Queue service - responsible for CRUD operations on records.
+- Task service - responsible for heavy processing.
 - Mailer service - responsible for sending out email messages.
 
 This example uses a SINGLE database (MongoDB) instance for all microservices. This is not a correct point, the correct way is to use a separate DB instance for every microservice. I used one DB instance for all microservices to simplify this example.
