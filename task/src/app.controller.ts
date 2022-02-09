@@ -13,7 +13,7 @@ export class AppController {
 
   @EventPattern({ cmd: 'queue-process-export-users' })
   sendMailExportedUsers() {
-    console.warn('queue message');
+    this.appService.processExportUsers('example');
     return 'roger';
   }
 }

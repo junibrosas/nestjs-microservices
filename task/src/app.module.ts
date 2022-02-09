@@ -1,9 +1,9 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { PROCESS_EXPORT } from './app.constants';
 import { AppController } from './app.controller';
+import { ExportProcessor } from './app.processor';
 import { AppService } from './app.service';
-import { MessageConsumer } from './message.consumer';
-import { MessageProducerService } from './message.producer.service';
 
 @Module({
   imports: [
@@ -14,10 +14,10 @@ import { MessageProducerService } from './message.producer.service';
       },
     }),
     BullModule.registerQueue({
-      name: 'message-queue',
+      name: PROCESS_EXPORT,
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, MessageProducerService, MessageConsumer],
+  providers: [AppService, ExportProcessor],
 })
 export class AppModule {}
