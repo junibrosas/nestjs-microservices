@@ -3,28 +3,20 @@ import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class AppService {
-  constructor(@Inject('GREETING_SERVICE') private client: ClientProxy) {}
+  constructor(
+    @Inject('MAILER_SERVICE') private mailerClient: ClientProxy,
+    @Inject('QUEUE_SERVICE') private queueClient: ClientProxy,
+  ) {}
 
-  async getHello() {
-    return this.client.send({ cmd: 'greeting' }, 'Progressive Coder');
+  async onApplicationBootstrap() {
+    // Connect your client to the redis server on startup.
+    await this.mailerClient.connect();
+    await this.queueClient.connect();
   }
 
-  async getHelloAsync() {
-    const message = await this.client.send(
-      { cmd: 'greeting-async' },
-      'Progressive Coder',
-    );
-    return message;
-  }
-
-  async publishEvent() {
-    this.client.emit('book-created', {
-      bookName: 'The Way Of Kings',
-      author: 'Brandon Sanderson',
-    });
-  }
-
-  async sendEmailMessage() {
-    this.client.emit({ cmd: 'send-mail-message' }, 'junibrosas@gmail.com');
+  async getSend() {
+    const recipient = 'junibrosas@gmail.com';
+    this.mailerClient.emit({ cmd: 'mailer-send-exported-users' }, recipient);
+    this.queueClient.emit({ cmd: 'queue-process-export-users' }, recipient);
   }
 }

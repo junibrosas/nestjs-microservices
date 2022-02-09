@@ -1,22 +1,19 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
-import { MessageProducerService } from './message.producer.service';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly messageProducerService: MessageProducerService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
 
-  @Get('message')
-  getInvokeMessage(@Query('msg') msg: string) {
-    this.messageProducerService.sendMessage(msg);
-    return msg;
+  @EventPattern({ cmd: 'queue-process-export-users' })
+  sendMailExportedUsers() {
+    console.warn('queue message');
+    return 'roger';
   }
 }

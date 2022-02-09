@@ -6,12 +6,21 @@ import { AppService } from './app.service';
 @Module({
   imports: [
     ClientsModule.register([
-      {name: 'GREETING_SERVICE',transport: Transport.REDIS,
-      options : {
-        url: 'redis://localhost:6379',
-      }
-    }
-    ])
+      {
+        name: 'MAILER_SERVICE',
+        transport: Transport.REDIS,
+        options: {
+          url: 'redis://localhost:6379',
+        },
+      },
+      {
+        name: 'QUEUE_SERVICE',
+        transport: Transport.REDIS,
+        options: {
+          url: 'redis://localhost:6379',
+        },
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [AppService],

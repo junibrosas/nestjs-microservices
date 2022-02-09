@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable, Logger } from '@nestjs/common';
 import { Queue } from 'bull';
-import { CONFIRM_REGISTRATION, MAIL_QUEUE } from './app.constants';
+import { MAIL_QUEUE, MAIL_EXPORTED_USERS } from './app.constants';
 
 @Injectable()
 export class AppService {
@@ -13,15 +13,17 @@ export class AppService {
     return 'Hello World!';
   }
 
-  public async sendConfirmationEmail(recipient: string): Promise<void> {
+  public async sendExportedUsersMail(
+    recipient: string,
+  ): Promise<{ recipient: string }> {
     try {
-      await this._mailQueue.add(CONFIRM_REGISTRATION, {
-        recipient,
-      });
+      await this._mailQueue.add(MAIL_EXPORTED_USERS, { recipient });
     } catch (error) {
       this._logger.error(
-        `Error queueing registration email to user ${recipient}`,
+        `Error queueing export users email to user ${recipient}`,
       );
     }
+
+    return { recipient };
   }
 }
