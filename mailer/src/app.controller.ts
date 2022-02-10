@@ -11,19 +11,18 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @EventPattern({ cmd: 'mailer-send-exported-users' })
-  sendMailExportedUsers() {
+  @EventPattern('mailer-send-exported-users')
+  handleSendExportedUsers() {
     this.appService.sendExportedUsersMail('junibrosas@gmail.com');
-    return 'roger';
   }
 
-  @EventPattern({ cmd: 'mailer-send-sample' })
-  sendSampleMail() {
-    console.warn('warning...');
+  @EventPattern('mailer-send-processed-data')
+  handleSendProcessedData() {
+    console.warn('Processed data link sent as email message.');
   }
 
   @EventPattern('send-user-notification')
-  sendusernotify(data) {
+  handleSendUserNotification(data) {
     console.warn(data);
     console.warn('send user notification...');
   }

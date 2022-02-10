@@ -3,7 +3,6 @@ import {
   ClientProxy,
   ClientProxyFactory,
   EventPattern,
-  MessagePattern,
   Transport,
 } from '@nestjs/microservices';
 import { AppService } from './app.service';
@@ -26,15 +25,14 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/send')
+  @Get('/process')
   async sendMail() {
-    this.client.emit({ cmd: 'mailer-send-sample' }, 'junibrosas');
-    return 'sending...';
+    this.client.emit('mailer-send-processed-data', 'junibrosas');
+    return 'Attached process data link to email message...';
   }
 
-  @EventPattern({ cmd: 'queue-process-export-users' })
+  @EventPattern('queue-process-export-users')
   sendMailExportedUsers() {
     this.appService.processExportUsers('example');
-    return 'roger';
   }
 }
