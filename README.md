@@ -6,18 +6,10 @@ Create a proof-of-concept for a communication between services using NestJS fram
 
 This API showcase consists of the following parts:
 
-- Client - A NestJS HTTP gateway to publishes events to microservices.
-- Client Express - A very simple Express server that publishes event.
-- Task service - responsible for heavy processing.
-- Mailer service - responsible for sending out email messages.
-
-## Relationships
-
-- The `client` server publishes publishes `mailer-send-exported-users` and `task-process-export-users` that is beng handled in `mailer` and `task` service.
-- The `client-express` is a simple server that demonstrates a way to publish and event and the `task` service which is a
-- The `task` service is a hybrid NestJS application that listens for HTTP requests and make use of connected microservices. It publishes `mailer-send-processed-data` event and the `mailer` service handles the event.
-- The `mailer` service is a microservice that listens to events.
-
+- Client - A NestJS HTTP gateway to publishes events to microservices. The `client` server publishes publishes `mailer-send-exported-users` and `task-process-export-users` that is beng handled in `mailer` and `task` service.
+- Client Express - A very simple Express server that publishes event. The `client-express` is a simple server that demonstrates a way to publish and event and the `task` service handles the published events.
+- Task service - responsible for heavy processing. The `task` service is a hybrid NestJS application that listens for HTTP requests and make use of connected microservices. It publishes `mailer-send-processed-data` event and the `mailer` service handles the event.
+- Mailer service - responsible for sending out email messages. The `mailer` service is a microservice that listens to events.
 
 ## Redis
 
