@@ -17,6 +17,6 @@ export class AppService {
   async getSend() {
     const recipient = 'junibrosas@gmail.com';
     this.mailerClient.emit('mailer-send-exported-users', recipient);
-    this.taskClient.emit('queue-process-export-users', recipient);
+    this.taskClient.emit('task-process-export-users', recipient);
   }
 }

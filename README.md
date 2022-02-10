@@ -2,32 +2,56 @@
 
 Create a proof-of-concept for a communication between services using NestJS framework.
 
-## Installation
-
-Run `npm install` to all services.
-Run `npm run start:dev` to all services.
-
-You will need redis installed on your server to support the queue. The configuration of this database is simple.
-
-References:
-https://dzone.com/articles/how-to-create-a-nestjs-redis-microservice
-
-## Tools
-
-- NestJS
-- Mail
-- BullJS
-
 ## Brief architecture overview
 
 This API showcase consists of the following parts:
 
-- API gateway
+- Client - A NestJS HTTP gateway to publishes events to microservices.
+- Client Express - A very simple Express server that publishes event.
 - Task service - responsible for heavy processing.
 - Mailer service - responsible for sending out email messages.
 
-This example uses a SINGLE database (MongoDB) instance for all microservices. This is not a correct point, the correct way is to use a separate DB instance for every microservice. I used one DB instance for all microservices to simplify this example.
+Event-based pattern is used to communicate between services.
 
-An example of using a redis list as a queue for a microservice mail server. Microservice mail delivery processes can be spun up to listen to the queue and wait for work.
+## Redis
 
-https://github.com/jeffbski/microservices
+You will need redis installed on your server to support the queue and the transport.
+
+## Installation
+
+We have services overall.
+
+Client
+
+```
+cd client && npm install && npm run start:dev
+```
+
+Client ExpressJS
+
+```
+cd client-express && npm install && npm run dev
+```
+
+Task
+
+```
+cd task && npm install && npm run start:dev
+```
+
+Mailer
+
+```
+cd mailer && npm install && npm run start:dev
+```
+
+## Relationships
+
+- The `client` server publishes publishes `mailer-send-exported-users` and `task-process-export-users` that is beng handled in `mailer` and `task` service.
+- The `client-express` is a simple server that demonstrates a way to publish and event and the `task` service which is a
+- The `task` service is a hybrid NestJS application that listens for HTTP requests and make use of connected microservices. It publishes `mailer-send-processed-data` event and the `mailer` service handles the event.
+- The `mailer` service is a microservice that listens to events.
+
+References:
+https://docs.nestjs.com/microservices/basics
+https://cloudnweb.dev/2019/08/implementing-redis-pub-sub-in-node-js-application

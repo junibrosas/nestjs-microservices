@@ -31,7 +31,7 @@ export class AppController {
     return 'Attached process data link to email message...';
   }
 
-  @EventPattern('queue-process-export-users')
+  @EventPattern('task-process-export-users')
   sendMailExportedUsers() {
     this.appService.processExportUsers('example');
   }
