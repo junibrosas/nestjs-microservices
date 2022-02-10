@@ -6,7 +6,9 @@ import { Logger } from '@nestjs/common';
 const logger = new Logger('Task');
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AppModule, {
+  const app = await NestFactory.create(AppModule);
+
+  app.connectMicroservice({
     name: 'TASK_SERVICE',
     transport: Transport.REDIS,
     options: {
@@ -14,6 +16,9 @@ async function bootstrap() {
     },
   });
 
-  app.listen().then(() => logger.log('Task microservice is listening...'));
+  await app.startAllMicroservices();
+  await app
+    .listen(3001)
+    .then(() => logger.log('Task microservice is listening...'));
 }
 bootstrap();

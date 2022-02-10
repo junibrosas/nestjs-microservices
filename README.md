@@ -27,3 +27,7 @@ This API showcase consists of the following parts:
 - Mailer service - responsible for sending out email messages.
 
 This example uses a SINGLE database (MongoDB) instance for all microservices. This is not a correct point, the correct way is to use a separate DB instance for every microservice. I used one DB instance for all microservices to simplify this example.
+
+An example of using a redis list as a queue for a microservice mail server. Microservice mail delivery processes can be spun up to listen to the queue and wait for work.
+
+https://github.com/jeffbski/microservices

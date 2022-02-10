@@ -16,4 +16,15 @@ export class AppController {
     this.appService.sendExportedUsersMail('junibrosas@gmail.com');
     return 'roger';
   }
+
+  @EventPattern({ cmd: 'mailer-send-sample' })
+  sendSampleMail() {
+    console.warn('warning...');
+  }
+
+  @EventPattern('send-user-notification')
+  sendusernotify(data) {
+    console.warn(data);
+    console.warn('send user notification...');
+  }
 }

@@ -14,7 +14,7 @@ import { AppService } from './app.service';
         },
       },
       {
-        name: 'QUEUE_SERVICE',
+        name: 'TASK_SERVICE',
         transport: Transport.REDIS,
         options: {
           url: 'redis://localhost:6379',
