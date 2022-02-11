@@ -43,6 +43,10 @@ Mailer
 cd mailer && npm install && npm run start:dev
 ```
 
+## Run the applications
+- First, run the services `task` and `mailer`.
+- Then run the http servers either `client` or `client-express`. Access the url `http://localhost:3000/send` or `http://localhost:3005`.
+
 
 ## References
 - https://docs.nestjs.com/microservices/basics
