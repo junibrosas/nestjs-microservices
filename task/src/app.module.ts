@@ -5,7 +5,9 @@ import { PROCESS_EXPORT } from './app.constants';
 import { AppController } from './app.controller';
 import { ExportProcessor } from './app.processor';
 import { AppService } from './app.service';
-
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserModel } from './models/user.model';
+import { UserService } from './services/user.service';
 @Module({
   imports: [
     ClientsModule.register([
@@ -26,8 +28,10 @@ import { AppService } from './app.service';
     BullModule.registerQueue({
       name: PROCESS_EXPORT,
     }),
+    MongooseModule.forRoot('mongodb://localhost/alaya'),
+    MongooseModule.forFeature([{ name: User.name, schema: UserModel }]),
   ],
   controllers: [AppController],
-  providers: [AppService, ExportProcessor],
+  providers: [AppService, ExportProcessor, UserService],
 })
 export class AppModule {}
